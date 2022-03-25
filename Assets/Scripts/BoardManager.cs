@@ -8,6 +8,7 @@ public class BoardManager : MonoBehaviour
     public int width = 4;
     public int height = 4;
     public Point PointPrefab;
+    public Line LinePrefab;
 
     private void GenerateBoard()
     {
@@ -17,6 +18,15 @@ public class BoardManager : MonoBehaviour
             {
                 var p = new Vector2(i, j);
                 Instantiate(PointPrefab, p, Quaternion.identity);
+            }
+        }
+
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width - 1; j++)
+            {
+                var p = new Vector2(i, j + 0.5f);
+                Instantiate(LinePrefab, p, Quaternion.identity);
             }
         }
 

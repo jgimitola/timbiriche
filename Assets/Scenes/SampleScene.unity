@@ -295,3 +295,4 @@ MonoBehaviour:
   width: 4
   height: 4
   PointPrefab: {fileID: 1024809815146167938, guid: d0c981306ef95ea49997e4d80bd576b8, type: 3}
+  LinePrefab: {fileID: 2373868916207621390, guid: 0c2536066c4ab5a43ac1d6c2a0c99723, type: 3}
