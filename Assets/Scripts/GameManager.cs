@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
-    public int width = 4;
-    public int height = 4;
-    public Point PointPrefab;
-
-    private void GenerateBoard()
+    public enum GameState
     {
-        for (int i = 0; i < height; i++)
-        {
-            for (int j = 0; j < height; j++)
-            {
-                var p = new Vector2(i, j);
-                Instantiate(PointPrefab, p, Quaternion.identity);
-            }
-        }
-
-        var center = new Vector2((float)height / 2 - 0.5f, (float)width / 2 - 0.5f);
-        Camera.main.transform.position = new Vector3(center.x, center.y, -5);
+        start,
+        player1,
+        player2,
+        end
     }
 
+    public static GameManager Instance;
+    private GameState _gameState;
+
+    public GameState GetState => _gameState;
+
+    public void UpdateGameState(GameState gameState)
+    {
+        _gameState = gameState;
+    }
+
+    public void SwitchPlayer()
+    {
+        if (_gameState == GameState.player1)
+        {
+            _gameState = GameState.player2;
+        }
+        else
+        {
+            _gameState = GameState.player1;
+        }
+    }
 
     private void Awake()
     {
@@ -33,12 +42,24 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateBoard();
+        _gameState = GameState.start;
     }
 
     // Update is called once per frame
     void Update()
     {
+        switch (_gameState)
+        {
+            case GameState.start:
+                UpdateGameState(GameState.player1);
+                break;
+            case GameState.player1:
+                break;
+            case GameState.player2:
+                break;
+            case GameState.end:
+                break;
+        }
 
     }
 }

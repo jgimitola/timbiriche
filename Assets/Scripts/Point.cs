@@ -11,15 +11,15 @@ public class Point : MonoBehaviour
     {
         SpriteRenderer srCircle = Inner.GetComponent<SpriteRenderer>();
 
-        if (isClicked)
+        if (GameManager.Instance.GetState == GameManager.GameState.player1)
         {
-            isClicked = false;
-            srCircle.color = Color.white;
+            srCircle.color = Color.red;
         }
         else
         {
-            isClicked = true;
             srCircle.color = Color.cyan;
         }
+        isClicked = true;
+        BoardManager.Instance.SetPoint(this);
     }
 }
