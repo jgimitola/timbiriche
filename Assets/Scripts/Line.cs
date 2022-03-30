@@ -5,7 +5,9 @@ using UnityEngine;
 public class Line : MonoBehaviour
 {
     public GameObject Inner;
+
     private Vector2 _position;
+    private bool _isClicked = false;
 
     public Vector2 Pos => _position;
 
@@ -14,15 +16,23 @@ public class Line : MonoBehaviour
         this._position = position;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnMouseDown()
     {
+        if (!_isClicked)
+        {
+            _isClicked = true;
+            SpriteRenderer srCircle = Inner.GetComponent<SpriteRenderer>();
 
+            if (GameManager.Instance.GetState == GameManager.GameState.player1)
+            {
+                srCircle.color = Color.red;
+            }
+            else
+            {
+                srCircle.color = Color.cyan;
+            }
+            BoardManager.Instance.SetLine(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
