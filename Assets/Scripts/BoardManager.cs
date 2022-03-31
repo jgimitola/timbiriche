@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
 {
     public static BoardManager Instance;
-    [SerializeField] private int width = 4;
-    [SerializeField] private int height = 4;
     public Point PointPrefab;
     public Line LinePrefab;
 
-    private void GenerateBoard()
+    public Canvas canvas;
+    public Button button;
+    public Dropdown dropdown;
+
+    private void GenerateBoard(int width, int height)
     {
         int c = 0;
         for (int i = 0; i < height; i++)
@@ -51,6 +54,7 @@ public class BoardManager : MonoBehaviour
         GameManager.Instance.SwitchPlayer();
     }
 
+
     private void Awake()
     {
         Instance = this;
@@ -59,7 +63,13 @@ public class BoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GenerateBoard();
+        button.onClick.AddListener(() =>
+        {
+            canvas.gameObject.SetActive(false);
+            int index = dropdown.value;
+            int n = int.Parse(dropdown.options[index].text);
+            GenerateBoard(n, n);
+        });
     }
 
     // Update is called once per frame
