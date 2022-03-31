@@ -8,10 +8,24 @@ public class BoardManager : MonoBehaviour
     public static BoardManager Instance;
     public Point PointPrefab;
     public Line LinePrefab;
+    public Player1Icon p1Icon;
+    public Player2Icon p2Icon;
 
     public Canvas canvas;
     public Button button;
     public Dropdown dropdown;
+
+    private void PaintPlayerCell(int i, int j)
+    {
+        if (GameManager.Instance.GetState == GameManager.GameState.player1)
+        {
+            Instantiate(p1Icon, new Vector2(i + 0.5f, j + 0.5f), Quaternion.identity);
+        }
+        else
+        {
+            Instantiate(p2Icon, new Vector2(i + 0.5f, j + 0.5f), Quaternion.identity);
+        }
+    }
 
     private void GenerateBoard(int width, int height)
     {
@@ -70,6 +84,7 @@ public class BoardManager : MonoBehaviour
             int n = int.Parse(dropdown.options[index].text);
             GenerateBoard(n, n);
         });
+        PaintPlayerCell(0, 0);
     }
 
     // Update is called once per frame

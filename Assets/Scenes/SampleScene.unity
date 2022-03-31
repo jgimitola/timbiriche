@@ -1839,6 +1839,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PointPrefab: {fileID: 1024809815146167938, guid: d0c981306ef95ea49997e4d80bd576b8, type: 3}
   LinePrefab: {fileID: 2373868916207621390, guid: 0c2536066c4ab5a43ac1d6c2a0c99723, type: 3}
+  p1Icon: {fileID: 7013031580067883364, guid: 232e233d7c9fa0c48a8090aac33a55ad, type: 3}
+  p2Icon: {fileID: 7228936594092436640, guid: 2645895cfce71ec4bad720710c84ea1a, type: 3}
   canvas: {fileID: 1730607946}
   button: {fileID: 1007952916}
   dropdown: {fileID: 706496226}
