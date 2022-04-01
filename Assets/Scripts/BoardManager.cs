@@ -41,12 +41,29 @@ public class BoardManager : MonoBehaviour
     public Player2Icon p2Icon;
 
     public Canvas canvas;
+    public Text titleText;
     public Button button;
+    public Text legendText;
     public Dropdown dropdown;
+    public Text resultText;
 
     IDictionary<(int, int), Line> verticalLinesDictionary;
     IDictionary<(int, int), Line> horizontalLinesDictionary;
     Cell[,] cells;
+    int availableCells, pointsP1, pointsP2;
+
+    private void toggleMenu(bool toggle)
+    {
+        titleText.gameObject.SetActive(toggle);
+        legendText.gameObject.SetActive(toggle);
+        dropdown.gameObject.SetActive(toggle);
+        button.gameObject.SetActive(toggle);
+    }
+
+    private void toggleResultMessage(bool toggle)
+    {
+        resultText.gameObject.SetActive(toggle);
+    }
 
     private List<Cell> PosibleLineCells(Line l)
     {
@@ -116,6 +133,9 @@ public class BoardManager : MonoBehaviour
         }
 
         cells = new Cell[width - 1, height - 1];
+        availableCells = (width - 1) * (height - 1);
+        pointsP1 = 0;
+        pointsP2 = 0;
 
         for (int i = 0; i < width - 1; i++)
         {
@@ -143,9 +163,37 @@ public class BoardManager : MonoBehaviour
         {
             if (c.markCell())
             {
+                if (GameManager.Instance.GetState == GameManager.GameState.player1)
+                {
+                    pointsP1++;
+                }
+                else
+                {
+                    pointsP2++;
+
+                }
+                availableCells--;
+
                 validMovement = true;
                 PaintPlayerCell(c.pos);
             }
+        }
+
+        Debug.Log("Available: " + availableCells);
+        Debug.Log("P1: " + pointsP1);
+        Debug.Log("P2: " + pointsP2);
+
+        if (availableCells + pointsP1 < pointsP2)
+        {
+            Debug.Log("Gana Jugador 2");
+            resultText.text = "Gana Jugador 2";
+            toggleResultMessage(true);
+        }
+        else if (availableCells + pointsP2 < pointsP1)
+        {
+            Debug.Log("Gana Jugador 1");
+            resultText.text = "Gana Jugador 1";
+            toggleResultMessage(true);
         }
 
         if (!validMovement)
@@ -167,7 +215,8 @@ public class BoardManager : MonoBehaviour
     {
         button.onClick.AddListener(() =>
         {
-            canvas.gameObject.SetActive(false);
+            toggleMenu(false);
+
             int index = dropdown.value;
             int n = int.Parse(dropdown.options[index].text);
             GenerateBoard(n, n);
