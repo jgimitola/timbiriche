@@ -26,11 +26,11 @@ public class Line : MonoBehaviour
 
             if (GameManager.Instance.GetState == GameManager.GameState.player1)
             {
-                srCircle.color = Color.red;
+                srCircle.color = Color.cyan;
             }
             else
             {
-                srCircle.color = Color.cyan;
+                srCircle.color = Color.red;
             }
             BoardManager.Instance.SetLine(this);
         }
